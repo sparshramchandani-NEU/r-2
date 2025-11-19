@@ -1,0 +1,15 @@
+name: Sync to big-r
+on:
+  push:
+    branches: [ main ]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push to big-r/r-2
+        run: |
+          git config user.name "sync-bot"
+          git config user.email "sync-bot@example.com"
+          git remote add bigr "${{ secrets.BIGR_PUSH_URL }}"
+          git push bigr HEAD:r-2 --force
